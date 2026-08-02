@@ -1,5 +1,5 @@
 const products = [
-    { "id":  1,  "name": "#7-1001", "path": "مستودع 7-20260802T054438Z-1-001/مستودع 7/IMG_2772.JPG", "warehouse": 7 },
+    { "id":  1,  "name": "#7-1001", "path": "images1/IMG_2772.JPG", "warehouse": 7 },
     { "id":  2,  "name": "#7-1002", "path": "مستودع 7-20260802T054438Z-1-001/مستودع 7/IMG_2773.JPG", "warehouse": 7 },
     { "id":  3,  "name": "#7-1003", "path": "مستودع 7-20260802T054438Z-1-001/مستودع 7/IMG_2774.JPG", "warehouse": 7 },
     { "id":  4,  "name": "#7-1004", "path": "مستودع 7-20260802T054438Z-1-001/مستودع 7/IMG_2775.JPG", "warehouse": 7 },
