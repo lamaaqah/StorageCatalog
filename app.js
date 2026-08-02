@@ -50,12 +50,6 @@
     document.getElementById('count-all').textContent = allCount;
     document.getElementById('count-w7').textContent  = w7Count;
     document.getElementById('count-w9').textContent  = w9Count;
-
-    // header stats
-    const statW7 = document.getElementById('stat-w7');
-    const statW9 = document.getElementById('stat-w9');
-    if (statW7) statW7.textContent = `مستودع 7: ${w7Count} صورة`;
-    if (statW9) statW9.textContent = `مستودع 9: ${w9Count} صورة`;
   }
 
   /* ── Filter & Render ─────────────────────────────────────── */
