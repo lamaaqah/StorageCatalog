@@ -10,12 +10,12 @@
 <body>
 
   <!-- ══════════════════════════════════════════
-       HEADER
+       HEADER — Brand
   ══════════════════════════════════════════ -->
   <header class="header" role="banner">
     <div class="header-brand">
       <div class="brand-logo" aria-hidden="true">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="1.8">
           <path d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25"/>
         </svg>
       </div>
@@ -24,59 +24,29 @@
         <p>عرض منتجات مستودع ٧ ومستودع ٩</p>
       </div>
     </div>
-
-    <div class="header-stats" aria-label="إحصائيات المستودعات">
-      <div class="stat-chip w7">
-        <span class="dot"></span>
-        <span id="stat-w7">مستودع 7</span>
-      </div>
-      <div class="stat-chip w9">
-        <span class="dot"></span>
-        <span id="stat-w9">مستودع 9</span>
-      </div>
-    </div>
   </header>
 
   <!-- ══════════════════════════════════════════
-       TOOLBAR — Filters + Search + View Toggle
+       TOP BAR — Filters only
+  ══════════════════════════════════════════ -->
+  <header class="top-bar" role="banner">
+    <nav class="filter-group" role="group" aria-label="فلاتر المستودع">
+      <button id="filter-all" class="filter-btn active" data-filter="all" aria-pressed="true">
+        <span><span class="count-badge" id="count-all">0</span>الكل</span>
+      </button>
+      <button id="filter-w7" class="filter-btn" data-filter="7" aria-pressed="false">
+        <span><span class="count-badge" id="count-w7">0</span>مستودع ٧</span>
+      </button>
+      <button id="filter-w9" class="filter-btn" data-filter="9" aria-pressed="false">
+        <span><span class="count-badge" id="count-w9">0</span>مستودع ٩</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       TOOLBAR — Search + View Toggle
   ══════════════════════════════════════════ -->
   <nav class="toolbar" role="navigation" aria-label="أدوات التصفح">
-    <div class="filter-group" role="group" aria-label="فلاتر المستودع">
-      <button
-        id="filter-all"
-        class="filter-btn active"
-        data-filter="all"
-        aria-pressed="true"
-      >
-        <span>
-          <span class="count-badge" id="count-all">0</span>
-          الكل
-        </span>
-      </button>
-      <button
-        id="filter-w7"
-        class="filter-btn"
-        data-filter="7"
-        aria-pressed="false"
-      >
-        <span>
-          <span class="count-badge" id="count-w7">0</span>
-          مستودع ٧
-        </span>
-      </button>
-      <button
-        id="filter-w9"
-        class="filter-btn"
-        data-filter="9"
-        aria-pressed="false"
-      >
-        <span>
-          <span class="count-badge" id="count-w9">0</span>
-          مستودع ٩
-        </span>
-      </button>
-    </div>
-
     <div class="toolbar-right">
       <div class="search-wrap">
         <input
