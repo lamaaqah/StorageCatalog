@@ -42,15 +42,38 @@
     return true;
   });
 
+  /* ── Get Warehouse Helpers ───────────────────────────────── */
+  function getWarehouseLabel(wh) {
+    const s = String(wh).trim().toUpperCase();
+    if (s === '7') return 'مستودع ٧';
+    if (s === '9') return 'مستودع ٩';
+    if (s === 'G012') return 'مستودع G012';
+    return `مستودع ${wh}`;
+  }
+
+  function getWarehouseClass(wh) {
+    const s = String(wh).trim().toUpperCase();
+    if (s === '7') return 'w7';
+    if (s === '9') return 'w9';
+    if (s === 'G012') return 'wg012';
+    return 'wother';
+  }
+
   /* ── Update badge counts ─────────────────────────────────── */
   function updateBadgeCounts() {
-    const w7Count  = uniqueProducts.filter(p => p.warehouse === 7).length;
-    const w9Count  = uniqueProducts.filter(p => p.warehouse === 9).length;
+    const w7Count  = uniqueProducts.filter(p => String(p.warehouse).trim() === '7').length;
+    const w9Count  = uniqueProducts.filter(p => String(p.warehouse).trim() === '9').length;
+    const wgCount  = uniqueProducts.filter(p => String(p.warehouse).trim().toUpperCase() === 'G012').length;
     const allCount = uniqueProducts.length;
 
     document.getElementById('count-all').textContent = allCount;
     document.getElementById('count-w7').textContent  = w7Count;
     document.getElementById('count-w9').textContent  = w9Count;
+    
+    const countWgEl = document.getElementById('count-wg');
+    if (countWgEl) {
+      countWgEl.textContent = wgCount;
+    }
   }
 
   /* ── Smart Search ────────────────────────────────────────── */
@@ -65,8 +88,9 @@
     if (product.tags && product.tags.some(tag => tag.toLowerCase().includes(q))) return true;
 
     // Match against warehouse number or label
-    if (q === '٧' || q === '7') return product.warehouse === 7;
-    if (q === '٩' || q === '9') return product.warehouse === 9;
+    if (q === '٧' || q === '7') return String(product.warehouse).trim() === '7';
+    if (q === '٩' || q === '9') return String(product.warehouse).trim() === '9';
+    if (q === 'g012' || q === 'g12') return String(product.warehouse).trim().toUpperCase() === 'G012';
 
     return false;
   }
@@ -74,7 +98,7 @@
   /* ── Filter & Render ─────────────────────────────────────── */
   function getFiltered() {
     return uniqueProducts.filter(p => {
-      const whMatch = activeFilter === 'all' || p.warehouse === parseInt(activeFilter);
+      const whMatch = activeFilter === 'all' || String(p.warehouse).trim().toUpperCase() === activeFilter.toUpperCase();
       const qMatch  = matchesSearch(p, searchQuery);
       return whMatch && qMatch;
     });
@@ -104,16 +128,16 @@
       card.style.animationDelay = `${Math.min(index * 35, 400)}ms`;
       card.dataset.index = index;
 
-      const whLabel = product.warehouse === 7 ? 'مستودع ٧' : 'مستودع ٩';
-      const whClass = product.warehouse === 7 ? 'w7' : 'w9';
-      const qtyLabel = product.qty != null ? `الكمية: ${product.qty}` : '';
+      const whLabel = getWarehouseLabel(product.warehouse);
+      const whClass = getWarehouseClass(product.warehouse);
+      const displayName = product.name ? product.name : 'بدون مسمى';
 
       card.innerHTML = `
         <span class="card-ribbon ${whClass}">${whLabel}</span>
         <div class="card-image-wrap">
           <img
             src="${product.path}"
-            alt="${product.name}"
+            alt="${displayName}"
             loading="lazy"
             onerror="this.closest('.product-card').style.display='none'"
           />
@@ -128,8 +152,7 @@
         </div>
         <div class="card-footer">
           <span class="card-id-badge ${whClass}">#${product.id}</span>
-          <span class="card-name">${product.name}</span>
-          ${qtyLabel ? `<span class="card-qty">${qtyLabel}</span>` : ''}
+          <span class="card-name">${displayName}</span>
         </div>`;
 
       card.addEventListener('click', () => openLightbox(index));
@@ -186,19 +209,21 @@
     const product = filteredList[lbIndex];
     if (!product) return;
 
+    const displayName = product.name ? product.name : 'بدون مسمى';
+
     lbImg.classList.add('loading');
     lbImg.onload = () => lbImg.classList.remove('loading');
     lbImg.src    = product.path;
-    lbImg.alt    = product.name;
+    lbImg.alt    = displayName;
 
-    lbTitle.textContent = product.name;
+    lbTitle.textContent = displayName;
 
     if (lbSubtitle) {
-      lbSubtitle.textContent = product.qty != null ? `الكمية: ${product.qty}` : '';
+      lbSubtitle.textContent = ''; // Removed quantity subtitle
     }
 
-    const whLabel = product.warehouse === 7 ? 'مستودع ٧' : 'مستودع ٩';
-    const whClass = product.warehouse === 7 ? 'w7' : 'w9';
+    const whLabel = getWarehouseLabel(product.warehouse);
+    const whClass = getWarehouseClass(product.warehouse);
     lbBadge.textContent = whLabel;
     lbBadge.className   = `lightbox-badge ${whClass}`;
 
