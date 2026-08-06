@@ -21,7 +21,7 @@
       </div>
       <div class="brand-text">
         <h1>كتالوج المستودعات</h1>
-        <p>عرض منتجات مستودع ٧ ومستودع ٩</p>
+        <p>تصفح واستعراض أصول ومحتويات المستودعات بسهولة وذكاء</p>
       </div>
     </div>
   </header>
@@ -40,6 +40,9 @@
       <button id="filter-w9" class="filter-btn" data-filter="9" aria-pressed="false">
         <span><span class="count-badge" id="count-w9">0</span>مستودع ٩</span>
       </button>
+      <button id="filter-wg" class="filter-btn" data-filter="G012" aria-pressed="false">
+        <span><span class="count-badge" id="count-wg">0</span>مستودع G012</span>
+      </button>
     </nav>
   </header>
 
@@ -53,7 +56,7 @@
           id="search-input"
           class="search-input"
           type="search"
-          placeholder="ابحث عن صورة..."
+          placeholder="ابحث: ورد، طاولات، فازات، فرش، مفرش..."
           aria-label="بحث في الكتالوج"
         />
         <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24"
@@ -119,9 +122,12 @@
 
     <div class="lightbox-panel">
       <div class="lightbox-header">
-        <div style="display:flex;align-items:center;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
           <span id="lb-badge" class="lightbox-badge w7">مستودع ٧</span>
-          <span id="lb-title" class="lightbox-title">اسم الصورة</span>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <span id="lb-title" class="lightbox-title">اسم الصورة</span>
+            <span id="lb-subtitle" class="lightbox-subtitle"></span>
+          </div>
         </div>
         <button id="lb-close" class="lightbox-close" aria-label="إغلاق">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
