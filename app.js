@@ -1,6 +1,6 @@
 /**
  * app.js — Store Catalog Logic
- * Handles: filtering, search, view toggle, lightbox, scroll-to-top
+ * Handles: filtering, smart search (name + tags), view toggle, lightbox, scroll-to-top
  */
 
 (function () {
@@ -26,6 +26,7 @@
   const lightbox    = document.getElementById('lightbox');
   const lbImg       = document.getElementById('lb-img');
   const lbTitle     = document.getElementById('lb-title');
+  const lbSubtitle  = document.getElementById('lb-subtitle');
   const lbBadge     = document.getElementById('lb-badge');
   const lbClose     = document.getElementById('lb-close');
   const lbPrev      = document.getElementById('lb-prev');
@@ -52,11 +53,29 @@
     document.getElementById('count-w9').textContent  = w9Count;
   }
 
+  /* ── Smart Search ────────────────────────────────────────── */
+  function matchesSearch(product, query) {
+    if (!query) return true;
+    const q = query.toLowerCase().trim();
+
+    // Match against name
+    if (product.name && product.name.toLowerCase().includes(q)) return true;
+
+    // Match against tags (array of strings)
+    if (product.tags && product.tags.some(tag => tag.toLowerCase().includes(q))) return true;
+
+    // Match against warehouse number or label
+    if (q === '٧' || q === '7') return product.warehouse === 7;
+    if (q === '٩' || q === '9') return product.warehouse === 9;
+
+    return false;
+  }
+
   /* ── Filter & Render ─────────────────────────────────────── */
   function getFiltered() {
     return uniqueProducts.filter(p => {
       const whMatch = activeFilter === 'all' || p.warehouse === parseInt(activeFilter);
-      const qMatch  = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const qMatch  = matchesSearch(p, searchQuery);
       return whMatch && qMatch;
     });
   }
@@ -87,6 +106,7 @@
 
       const whLabel = product.warehouse === 7 ? 'مستودع ٧' : 'مستودع ٩';
       const whClass = product.warehouse === 7 ? 'w7' : 'w9';
+      const qtyLabel = product.qty != null ? `الكمية: ${product.qty}` : '';
 
       card.innerHTML = `
         <span class="card-ribbon ${whClass}">${whLabel}</span>
@@ -107,7 +127,9 @@
           </div>
         </div>
         <div class="card-footer">
-          <span class="card-id-badge ${whClass}">${product.name}</span>
+          <span class="card-id-badge ${whClass}">#${product.id}</span>
+          <span class="card-name">${product.name}</span>
+          ${qtyLabel ? `<span class="card-qty">${qtyLabel}</span>` : ''}
         </div>`;
 
       card.addEventListener('click', () => openLightbox(index));
@@ -170,6 +192,10 @@
     lbImg.alt    = product.name;
 
     lbTitle.textContent = product.name;
+
+    if (lbSubtitle) {
+      lbSubtitle.textContent = product.qty != null ? `الكمية: ${product.qty}` : '';
+    }
 
     const whLabel = product.warehouse === 7 ? 'مستودع ٧' : 'مستودع ٩';
     const whClass = product.warehouse === 7 ? 'w7' : 'w9';
