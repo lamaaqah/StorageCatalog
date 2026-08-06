@@ -79,7 +79,14 @@
   /* ── Smart Search ────────────────────────────────────────── */
   function matchesSearch(product, query) {
     if (!query) return true;
-    const q = query.toLowerCase().trim();
+    let q = query.toLowerCase().trim();
+
+    // Convert Eastern Arabic numerals to Western Arabic numerals (e.g. ٠-٩ to 0-9)
+    q = q.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+
+    // Match against ID (e.g., #12 or 12)
+    const cleanQ = q.startsWith('#') ? q.slice(1) : q;
+    if (cleanQ && product.id && String(product.id).includes(cleanQ)) return true;
 
     // Match against name
     if (product.name && product.name.toLowerCase().includes(q)) return true;
@@ -88,8 +95,8 @@
     if (product.tags && product.tags.some(tag => tag.toLowerCase().includes(q))) return true;
 
     // Match against warehouse number or label
-    if (q === '٧' || q === '7') return String(product.warehouse).trim() === '7';
-    if (q === '٩' || q === '9') return String(product.warehouse).trim() === '9';
+    if (q === '7') return String(product.warehouse).trim() === '7';
+    if (q === '9') return String(product.warehouse).trim() === '9';
     if (q === 'g012' || q === 'g12') return String(product.warehouse).trim().toUpperCase() === 'G012';
 
     return false;
