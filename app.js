@@ -34,6 +34,13 @@
   const lbDots      = document.getElementById('lb-dots');
   const lbBackdrop  = document.getElementById('lb-backdrop');
 
+  // Welcome Modal (آلية الاستعارة)
+  const welcomeModal      = document.getElementById('welcome-modal');
+  const welcomeCloseBtn   = document.getElementById('welcome-close');
+  const welcomeBackdrop   = document.getElementById('welcome-backdrop');
+  const welcomeConfirmBtn = document.getElementById('welcome-confirm-btn');
+  const openRulesBtn      = document.getElementById('open-rules-btn');
+
   /* ── Deduplicate products ────────────────────────────────── */
   const seen = new Set();
   const uniqueProducts = products.filter(p => {
@@ -278,10 +285,39 @@
     if (lbIndex < filteredList.length - 1) { lbIndex++; updateLightbox(); updateActiveDot(); }
   });
 
+  /* ── Welcome Modal ───────────────────────────────────────── */
+  function openWelcomeModal() {
+    if (!welcomeModal) return;
+    welcomeModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeWelcomeModal() {
+    if (!welcomeModal) return;
+    welcomeModal.classList.remove('open');
+    if (!lightbox.classList.contains('open')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (welcomeCloseBtn)   welcomeCloseBtn.addEventListener('click', closeWelcomeModal);
+  if (welcomeBackdrop)   welcomeBackdrop.addEventListener('click', closeWelcomeModal);
+  if (welcomeConfirmBtn) welcomeConfirmBtn.addEventListener('click', closeWelcomeModal);
+  if (openRulesBtn)      openRulesBtn.addEventListener('click', openWelcomeModal);
+
   // Keyboard navigation
   document.addEventListener('keydown', e => {
-    if (!lightbox.classList.contains('open')) return;
-    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'Escape') {
+      if (welcomeModal && welcomeModal.classList.contains('open')) {
+        closeWelcomeModal();
+        return;
+      }
+      if (lightbox && lightbox.classList.contains('open')) {
+        closeLightbox();
+        return;
+      }
+    }
+    if (!lightbox || !lightbox.classList.contains('open')) return;
     if (e.key === 'ArrowLeft')   { if (lbIndex > 0) { lbIndex--; updateLightbox(); updateActiveDot(); } }
     if (e.key === 'ArrowRight')  { if (lbIndex < filteredList.length - 1) { lbIndex++; updateLightbox(); updateActiveDot(); } }
   });
@@ -309,4 +345,9 @@
   /* ── Init ────────────────────────────────────────────────── */
   updateBadgeCounts();
   render();
+
+  // Initial modal state
+  if (welcomeModal && welcomeModal.classList.contains('open')) {
+    document.body.style.overflow = 'hidden';
+  }
 })();
