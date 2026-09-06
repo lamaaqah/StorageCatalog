@@ -24,6 +24,26 @@
         <p>تصفح واستعراض أصول ومحتويات المستودعات بسهولة وذكاء</p>
       </div>
     </div>
+
+    <div class="header-actions">
+      <button id="open-rules-btn" class="rules-btn" title="عرض آلية الاستعارة">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span>آلية الاستعارة</span>
+      </button>
+
+      <a href="Receipt statement.pdf" download="Receipt statement.pdf" target="_blank" class="download-receipt-btn" title="تحميل بيان استلام عهدة">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>تحميل بيان استلام عهدة</span>
+      </a>
+    </div>
   </header>
 
   <!-- ══════════════════════════════════════════
@@ -113,6 +133,127 @@
       </div>
     </div>
   </main>
+
+  <!-- ══════════════════════════════════════════
+       WELCOME MODAL — آلية الاستعارة من المستودعات
+  ══════════════════════════════════════════ -->
+  <div id="welcome-modal" class="welcome-modal open" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+    <div id="welcome-backdrop" class="welcome-backdrop"></div>
+    <div class="welcome-card">
+      <button id="welcome-close" class="welcome-close-btn" aria-label="إغلاق" title="إغلاق">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="welcome-header">
+        <div class="welcome-logos-wrap">
+          <div class="logo-card">
+            <img src="1.jpeg" alt="شعار مشروع التحول الذكي" class="welcome-logo" />
+          </div>
+          <div class="welcome-logo-divider"></div>
+          <div class="logo-card">
+            <img src="2.jpeg" alt="شعار وحدة الأنشطة الطلابية" class="welcome-logo" />
+          </div>
+        </div>
+        <span class="welcome-badge">جامعة الإمام عبد الرحمن بن فيصل</span>
+        <h2 id="welcome-title" class="welcome-title">آلية الاستعارة من المستودعات</h2>
+        <p class="welcome-subtitle">توجيهات وضوابط استعارة الأصول والمحتويات</p>
+      </div>
+
+      <div class="welcome-body">
+        <ol class="borrow-steps-list">
+          <li class="borrow-step-item step-theme-1">
+            <div class="step-badge">
+              <span class="step-num">1</span>
+            </div>
+            <div class="step-content">
+              <span class="step-text">الاطلاع على كتالوج المستودعات واختيار الأصناف المطلوبة.</span>
+            </div>
+            <div class="step-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+          </li>
+          <li class="borrow-step-item step-theme-2">
+            <div class="step-badge">
+              <span class="step-num">2</span>
+            </div>
+            <div class="step-content">
+              <span class="step-text">تعبئة طلب الاستعارة وتحديد الأصناف والكميات وموعد الاستخدام.</span>
+            </div>
+            <div class="step-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+          </li>
+          <li class="borrow-step-item step-theme-3">
+            <div class="step-badge">
+              <span class="step-num">3</span>
+            </div>
+            <div class="step-content">
+              <span class="step-text">اعتماد الطلب من وحدة الأنشطة الطلابية قبل الاستلام.</span>
+            </div>
+            <div class="step-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+          </li>
+          <li class="borrow-step-item step-theme-4">
+            <div class="step-badge">
+              <span class="step-num">4</span>
+            </div>
+            <div class="step-content">
+              <span class="step-text">استلام الأصناف في الموعد المحدد والتأكد من سلامتها.</span>
+            </div>
+            <div class="step-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+          </li>
+          <li class="borrow-step-item step-theme-5">
+            <div class="step-badge">
+              <span class="step-num">5</span>
+            </div>
+            <div class="step-content">
+              <span class="step-text">المحافظة على المستعارات طوال فترة الاستخدام.</span>
+            </div>
+            <div class="step-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </li>
+          <li class="borrow-step-item step-theme-6">
+            <div class="step-badge">
+              <span class="step-num">6</span>
+            </div>
+            <div class="step-content">
+              <span class="step-text">إعادة الأصناف إلى المستودع بحالتها الأصلية وفي الموعد المحدد.</span>
+            </div>
+            <div class="step-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            </div>
+          </li>
+          <li class="borrow-step-item step-theme-7 alert-step">
+            <div class="step-badge">
+              <span class="step-num alert-num">7</span>
+            </div>
+            <div class="step-content">
+              <span class="step-text">تتحمّل الجهة المستفيدة مسؤولية أي فقد أو تلف يلحق بالأدوات المستعارة.</span>
+            </div>
+            <div class="step-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="welcome-footer">
+        <button id="welcome-confirm-btn" class="welcome-action-btn">
+          <span>تصفح الكتالوج</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════════
        LIGHTBOX
